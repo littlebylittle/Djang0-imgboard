@@ -1,0 +1,7 @@
+{% if pages %}
+    <div class="hero-unit">
+        {%  for p in pages %}
+            [<a href="/{{ board_name }}/{{ p }}">{{ p }}</a>]
+        {% endfor %}
+    </div>
+{% endif %}

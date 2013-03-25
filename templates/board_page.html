@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}
+    List of threads
+{% endblock %}
+
+{% block content %}
+    <div class='alert-info nav-header'>
+        Board name: /{{ board_name }}/
+        Page number: {{ page_number }}
+    </div>
+
+    {% if threads_on_page %}
+        <hr/>
+        {% for t in threads_on_page %}
+            <div class='thread'>
+            <label>
+                <span class='threadname'>
+                    [{{ t.0.caption }}]
+                </span>
+                <span>
+                    {{ t.0.creation_date }}
+                </span>
+                <span class='postername'>
+                  {{ t.0.author_name }}
+                </span>
+                #{{ t.0.message_number }}
+                <span><a href='/{{ board_name }}/res/{{ t.0.message_number }}'>[ответ]</a></span>
+            </label>
+            <blockquote>
+                {{ t.0.message_data|linebreaksbr }}
+            </blockquote>
+            {% if t.1 %}
+                {% for p in t.1 %}
+                 <div class="post">
+                     <div class="doubledash">&gt;&gt; {{ p.creation_date }} | No. {{ p.message_number }}
+                     </div>
+                    <table>
+                     <tbody>
+                        <td>
+                            {{ p.message_data|linebreaksbr }}
+                        </td>
+                     </tbody>
+                    </table>
+                 </div>
+                 <div class="clear"></div>
+                {% endfor %}
+                <br/>
+            {% endif %}
+            </div>
+            <hr/>
+        {% endfor %}
+
+    {% else %}
+        <blockquote>
+        threads not found
+        </blockquote>
+    {% endif %}
+    <hr/>
+    {% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+    Frameset
+{% endblock %}
+{% block content %}
+    {% if boards %}
+        {% for categories_name, board_list in boards.items %}
+            <i>{{ categories_name }}</i> <br/>
+            {% for b in board_list %}
+                <div>
+                    <a href="/{{ b.1 }}/index" title="{{ b.0 }}" target="board">
+                        /{{ b.1 }}/ &mdash; {{ b.0 }} <span id="count_{{ b.1 }}"></span>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        Not Found
+    {% endif %}
+{% endblock %}
